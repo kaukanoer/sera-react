@@ -2,11 +2,14 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import {  BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import reducer from './redux/reducer';
 import './App.css';
-import { MainPage } from './page';
+import { LoginPage, MainPage } from './page';
+import { ROUTE_NAME_LOGIN, ROUTE_NAME_MAIN_PAGE } from './constant';
+import { PrivateRoute } from './component';
 
 const persistConfig = {
   key: 'root',
@@ -19,15 +22,28 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 const store = createStore(persistedReducer, applyMiddleware(thunk))
 const persistor = persistStore(store);
 
+console.log('store: ', store.getState())
 
-const App = ({ token, onAppear }) => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <div className="App">
-        <MainPage />
-      </div>
-    </PersistGate>
-   </Provider>
-);
+const App = () => {
+  const getElement = (element) => {
+    return <PrivateRoute element={element} />
+  }
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Outlet />}>
+            <Route path={ROUTE_NAME_MAIN_PAGE} element={getElement(MainPage)} />
+            <Route path={ROUTE_NAME_LOGIN} element={<LoginPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        </div>
+      </PersistGate>
+    </Provider>
+  )
+}
 
 export default App

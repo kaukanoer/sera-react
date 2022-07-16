@@ -8,3 +8,6 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
 
 export const SET_TOKEN = 'SET_TOKEN';
 export const setToken = makeActionCreator(SET_TOKEN, 'token');
+
+export const LOGGING_IN = 'LOGGING_IN';
+export const logginIn = makeActionCreator(LOGGING_IN, 'status')
