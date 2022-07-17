@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import {
-  Box, CircularProgress, Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow,
+  Box, LinearProgress, Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, 
 } from '@mui/material';
+import { Button } from '../../component';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = ({ 
-  blogs, onLogoutPressed, onAppear,
+  blogs, onAddBlogPressed, onAppear,
   downloadingBlogs,
 }) => {
+  const navigate = useNavigate();
   useEffect(onAppear, [])
 
   const headCells = [
@@ -25,27 +28,27 @@ const MainPage = ({
     </TableHead>
   )
 
-  const renderTabBody = () => {
-    if(downloadingBlogs) {
-      return (
-        <CircularProgress />
-      )
-    }
-    return (
-      <TableBody>
-        {blogs.map((blog, index) => (
-          <TableRow>
-            <TableCell>{index + 1}</TableCell>
-            <TableCell>{blog.title}</TableCell>
-            <TableCell>{blog.description}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    )
-  }
+  const renderTabBody = () => (
+    <TableBody>
+      {!!blogs && blogs.map((blog, index) => (
+        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={blog.id}>
+          <TableCell>{index + 1}</TableCell>
+          <TableCell>{blog.title}</TableCell>
+          <TableCell>{blog.description}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  )
 
   return (
-    <Box>
+    <Box sx={{ mt: 1}}>
+      <Box sz={{ marginTop: 8 }}>
+        <Button 
+          caption='Add New Blog' 
+          variant="outlined" 
+          onPress={() => onAddBlogPressed(navigate)}
+        />
+      </Box>
       <TableContainer
         sx={{
           width: '100%',
@@ -56,6 +59,11 @@ const MainPage = ({
           '& td, & th': { whiteSpace: 'nowrap' }
         }}
       >
+        {downloadingBlogs ? (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress size={16} />
+          </Box>
+        ) : (<></>)}
         <Table
           aria-labelledby="tableTitle"
           sx={{

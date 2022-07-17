@@ -2,7 +2,7 @@ import { TextField as TxtField } from "@mui/material";
 
 const TextField = ({
   id, autoComplete, label, name, required, type,
-  helperText, error, onChangeText,
+  helperText, error, onChangeText, ...props
 }) => (
   <TxtField
     margin="normal"
@@ -17,6 +17,7 @@ const TextField = ({
     autoFocus
     error={error}
     onChange={onChangeText}
+    {...props}
   />
 )
 

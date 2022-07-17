@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Box, Grid, CssBaseline, Typography, Container, Alert,
+  Box, Grid, Container, Alert,
  } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, TextField } from '../../component';
@@ -24,8 +24,7 @@ const LoginPage = ({ onLoginPressed, loggingIn, errorMessage }) => {
       {!!(errorMessage) && (
         <Alert severity="error">{errorMessage}</Alert>
       )}
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Container component="main" maxWidth="sm">
         <Box
           sx={{
             marginTop: 8,
@@ -34,10 +33,12 @@ const LoginPage = ({ onLoginPressed, loggingIn, errorMessage }) => {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5">
-            Sera ReactJs
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ 
+            mt: 4, 
+            padding: 4,
+            boxShadow: 2,
+            borderRadius: 2,
+          }}>
             <TextField
               name={FIELD_EMAIL}
               label="Email Address"

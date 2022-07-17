@@ -1,5 +1,5 @@
-import { REST_BASE_URL, REST_URL_LOGIN, REST_URL_REGISTER } from "./constant";
-import { collection, getDocs } from "firebase/firestore";
+import { REST_BASE_URL, REST_URL_LOGIN, REST_URL_REGISTER, COLLECTION_NAME_BLOG } from "./constant";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import firebase from './Firebase';
 
 const getHttpHeaders = (authenticationToken) => {
@@ -70,8 +70,15 @@ export const register = async (email, password) => {
 }
 
 export const downloadBlogs = async () => {
-  const result = await getDocs(collection(firebase, 'blog'));
+  const result = await getDocs(collection(firebase, COLLECTION_NAME_BLOG));
   let items = [];
   result.forEach((doc) => items = [...items, doc.data()])
   return items;
+}
+
+export const addBlog = async (body) => {
+  await setDoc(doc(firebase, COLLECTION_NAME_BLOG, body.id), body);
+}
+export const editBlog = async () => {
+
 }

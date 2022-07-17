@@ -23,3 +23,10 @@ export const downloadingBlogs = makeActionCreator(DOWNLOADING_BLOGS, 'status')
 
 export const SET_BLOGS = 'SET_BLOGS';
 export const setBlogs = makeActionCreator(SET_BLOGS, 'data');
+
+export const SET_BLOG_TAPPED_ID = 'SET_BLOG_TAPPED_ID';
+export const setBlogTappedId = makeActionCreator(SET_BLOG_TAPPED_ID, 'id')
+
+export const ADDING_EDITING_BLOG = 'ADDING_EDITING_BLOG';
+export const addingEditingBlog = makeActionCreator(ADDING_EDITING_BLOG, 'status');
+
