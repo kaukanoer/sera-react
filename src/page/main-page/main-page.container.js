@@ -8,8 +8,9 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  onButtonPressed: (text) => {
-    dispatch(setToken(text))
+  onAppear: () => {},
+  onLogoutPressed: () => {
+    dispatch(setToken(''))
   }
 });
 

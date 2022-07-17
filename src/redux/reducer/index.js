@@ -1,11 +1,13 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { combineReducers } from 'redux';
 import auth from './auth';
+import uiLoginRegister from './uiLoginRegister';
 
 const reducer = combineReducers({
   auth,
+  uiLoginRegister,
 })
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
     return reducer(state, action)
 }

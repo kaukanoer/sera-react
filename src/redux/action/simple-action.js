@@ -8,3 +8,12 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
 
 export const SET_TOKEN = 'SET_TOKEN';
 export const setToken = makeActionCreator(SET_TOKEN, 'token');
+
+export const LOGGING_IN = 'LOGGING_IN';
+export const logginIn = makeActionCreator(LOGGING_IN, 'status')
+
+export const REGISTERING = 'REGISTERING';
+export const registering = makeActionCreator(REGISTERING, 'status')
+
+export const DISPLAY_ERROR_MESSAGE = 'DISPLAY_ERROR_MESSAGE';
+export const displayErrorMessage = makeActionCreator(DISPLAY_ERROR_MESSAGE, 'msg')
