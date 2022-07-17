@@ -14,8 +14,6 @@ export default (title, description, navigate) => async (dispatch, getState) => {
       description,
       visibility: true,
     }
-    
-    console.log('a: ', body)
 
     await addEditBlog(body);
     dispatch(setSelectedBlog(null))
