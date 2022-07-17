@@ -4,7 +4,6 @@ import RegisterPage from './register.presentation';
 
 const mapStateToProps = state => ({
   registering: state.uiLoginRegister.registering,
-  errorMessage: state.uiLoginRegister.errorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({

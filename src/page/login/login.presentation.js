@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Box, Grid, Container, Alert,
- } from '@mui/material';
+import { Box, Grid, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, TextField } from '../../component';
 import { FIELD_EMAIL, FIELD_PASSWORD, ROUTE_NAME_REGISTER } from '../../constant';
@@ -21,9 +19,6 @@ const LoginPage = ({ onLoginPressed, loggingIn, errorMessage }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      {!!(errorMessage) && (
-        <Alert severity="error">{errorMessage}</Alert>
-      )}
       <Container component="main" maxWidth="sm">
         <Box
           sx={{
@@ -33,7 +28,7 @@ const LoginPage = ({ onLoginPressed, loggingIn, errorMessage }) => {
             alignItems: 'center',
           }}
         >
-          <Box component="form" onSubmit={handleSubmit} sx={{ 
+          <Box component="form" noValidation onSubmit={handleSubmit} sx={{ 
             mt: 4, 
             padding: 4,
             boxShadow: 2,

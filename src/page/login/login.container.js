@@ -6,7 +6,6 @@ const mapStateToProps = state => ({
   fullName: state.auth.fullName,
   token: state.auth.token,
   loggingIn: state.uiLoginRegister.loggingIn,
-  errorMessage: state.uiLoginRegister.errorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({

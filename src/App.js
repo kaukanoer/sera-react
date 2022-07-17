@@ -41,7 +41,6 @@ const App = () => {
             <Route path="/" element={<SplashPage />}>
             <Route path={ROUTE_NAME_LOGIN} element={<LoginPage />} />
             <Route path={ROUTE_NAME_REGISTER} element={<RegisterPage />} />
-            {/* Pages below have to use token to access */}
             <Route path={ROUTE_NAME_MAIN_PAGE} element={getElement(MainPage)} />
             <Route path={ROUTE_NAME_ADD_EDIT} element={getElement(AddEditBlogPage)} />
             <Route path={ROUTE_NAME_DENOM_FILTER} element={getElement(DenomFilterPage)} />

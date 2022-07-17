@@ -2,6 +2,13 @@ import { REST_BASE_URL, REST_URL_LOGIN, REST_URL_REGISTER, COLLECTION_NAME_BLOG 
 import { collection, getDocs, doc, setDoc, query, where } from "firebase/firestore";
 import firebase from './Firebase';
 
+const getLocalAuthorization = (token) => {
+  if (token) {
+    return;
+  }
+  throw new Error('You dont have permission to access this page')
+}
+
 const getHttpHeaders = (authenticationToken) => {
   let headers = {
     'Content-Type': 'application/json',
@@ -27,16 +34,8 @@ const handleResponse = async (response) => {
   }
   throw new Error(err ? err.error : err);
 };
-  
-export const sendGetRequest = async (apiPath, authenticationToken) => {
-  const url = `${REST_BASE_URL}${apiPath}`;
-  const method = 'GET';
-  const headers = getHttpHeaders(authenticationToken);
-  const response = await fetch(url, { method, headers });
-  return handleResponse(response);
-};
 
-export const sendPostRequest = async (apiPath, body, authenticationToken) => {
+const sendPostRequest = async (apiPath, body, authenticationToken) => {
   const bodyStr = JSON.stringify(body);
   const url = encodeURI(`${REST_BASE_URL}${apiPath}`);
   const method = 'POST';
@@ -51,10 +50,8 @@ export const login = async (email, password) => {
     password,
   }
 
-  // const result = await sendPostRequest(REST_URL_LOGIN, body);
-  return {
-    token: 'abc123'
-  };
+  const result = await sendPostRequest(REST_URL_LOGIN, body);
+  return result
 }
 
 export const register = async (email, password) => {
@@ -67,15 +64,16 @@ export const register = async (email, password) => {
   return result;
 }
 
-export const downloadBlogs = async () => {
+export const downloadBlogs = async (token) => {
+  getLocalAuthorization(token);
   const result = await getDocs(query(collection(firebase, COLLECTION_NAME_BLOG), where("visibility", "==", true)));
   let items = [];
   result.forEach((doc) => items = [...items, doc.data()])
   return items;
 }
 
-export const addEditBlog = async (body) => {
-  console.log('body: ', body)
+export const addEditBlog = async (body, token) => {
+  getLocalAuthorization(token);
   await setDoc(doc(firebase, COLLECTION_NAME_BLOG, body.id), body);
 }
 

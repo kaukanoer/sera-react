@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Box, Container, Grid, Alert,
- } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, TextField } from '../../component';
 import {
@@ -32,9 +30,6 @@ const RegisterPage = ({ onRegisterPressed, registering, errorMessage }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      {!!(errorMessage) && (
-        <Alert severity="error">{errorMessage}</Alert>
-      )}
       <Container component="main" maxWidth="sm">
         <Box
           sx={{

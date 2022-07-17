@@ -8,6 +8,8 @@ export default (title, description, navigate) => async (dispatch, getState) => {
   try {
     dispatch(addingEditingBlog(true));
     const { selectedBlog } = getState().uiBlog;
+    const { token } = getState().auth;
+
     const body = {
       id: selectedBlog?.id || uuid(),
       title, 
@@ -15,7 +17,7 @@ export default (title, description, navigate) => async (dispatch, getState) => {
       visibility: true,
     }
 
-    await addEditBlog(body);
+    await addEditBlog(body, token);
     dispatch(setSelectedBlog(null))
     navigate(`..${ROUTE_NAME_MAIN_PAGE}`, { replace: true });
   }

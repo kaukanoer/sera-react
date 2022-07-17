@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { AppBar, Box, Button, CssBaseline, Toolbar, Typography } from '@mui/material';
+import { Alert, AppBar, Box, Button, CssBaseline, Toolbar, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import { setToken } from '../../redux/action';
 
 const mapStateToProps = (state, ownProps) => ({
   authenticated: !!state.auth.token,
+  errorMessage: state.uiLoginRegister.errorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -36,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const SplashPage = ({
   onAppear, authenticated, onLogoutPressed, 
-  onHomePressed, onDenomFilterPressed
+  onHomePressed, onDenomFilterPressed, errorMessage,
  }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,6 +63,9 @@ const SplashPage = ({
         </Toolbar>
       </AppBar>
       <Box sx={{ marginTop: 8 }}>
+      {!!(errorMessage) && (
+        <Alert severity="error">{errorMessage}</Alert>
+      )}
         <Outlet />
       </Box>
     </Container>

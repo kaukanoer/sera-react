@@ -7,6 +7,8 @@ export default () => async (dispatch, getState) => {
   try {
     dispatch(deletingBlog(true));
     const { selectedBlog } = getState().uiBlog;
+    const { token } = getState().auth;
+
     const body = {
       id: selectedBlog.id,
       title: selectedBlog.title,
@@ -14,7 +16,7 @@ export default () => async (dispatch, getState) => {
       visibility: false,
     }
     
-    await addEditBlog(body);
+    await addEditBlog(body, token);
     dispatch(setSelectedBlog(null))
     dispatch(showBlogDetailDialogVisibility(false));
 
