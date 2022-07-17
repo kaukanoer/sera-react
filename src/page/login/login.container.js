@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { displayErrorMessage, loginAsync } from '../../redux/action';
 import LoginPage from './login.presentation';
 
-export const mapStateToProps = state => ({
+const mapStateToProps = state => ({
   fullName: state.auth.fullName,
   token: state.auth.token,
   loggingIn: state.uiLoginRegister.loggingIn,
   errorMessage: state.uiLoginRegister.errorMessage,
 })
 
-export const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   onLoginPressed: async (email, password, navigate) => {
     try {
       await dispatch(loginAsync(email, password, navigate));
@@ -18,6 +18,5 @@ export const mapDispatchToProps = (dispatch) => ({
     }
   }
 });
-
 
 export default  connect(mapStateToProps, mapDispatchToProps)(LoginPage);

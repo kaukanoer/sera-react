@@ -7,8 +7,14 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import reducer from './redux/reducer';
 import './App.css';
-import { LoginPage, MainPage, RegisterPage, SplashPage } from './page';
-import { ROUTE_NAME_LOGIN, ROUTE_NAME_MAIN_PAGE, ROUTE_NAME_REGISTER } from './constant';
+import { 
+  LoginPage, MainPage, RegisterPage, SplashPage,
+  AddEditBlogPage, DenomFilterPage,
+ } from './page';
+import {
+  ROUTE_NAME_LOGIN, ROUTE_NAME_MAIN_PAGE, ROUTE_NAME_REGISTER,
+  ROUTE_NAME_ADD_EDIT, ROUTE_NAME_DENOM_FILTER,
+} from './constant';
 import { PrivateRoute } from './component';
 
 const persistConfig = {
@@ -35,7 +41,10 @@ const App = () => {
             <Route path="/" element={<SplashPage />}>
             <Route path={ROUTE_NAME_LOGIN} element={<LoginPage />} />
             <Route path={ROUTE_NAME_REGISTER} element={<RegisterPage />} />
+            {/* Pages below have to use token to access */}
             <Route path={ROUTE_NAME_MAIN_PAGE} element={getElement(MainPage)} />
+            <Route path={ROUTE_NAME_ADD_EDIT} element={getElement(AddEditBlogPage)} />
+            <Route path={ROUTE_NAME_DENOM_FILTER} element={getElement(DenomFilterPage)} />
             </Route>
           </Routes>
         </BrowserRouter>
