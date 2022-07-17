@@ -1,0 +1,6 @@
+export { default as MainPage } from './main-page'
+export { default as LoginPage } from './login'
+export { default as RegisterPage } from './register'
+export { default as SplashPage } from './splash'
+export { default as AddEditBlogPage } from './add-edit-blog'
+export { default as DenomFilterPage } from './denom-filter'

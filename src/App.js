@@ -1,25 +1,56 @@
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import {  BrowserRouter, Routes, Route } from 'react-router-dom';
+import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
+import reducer from './redux/reducer';
 import './App.css';
+import { 
+  LoginPage, MainPage, RegisterPage, SplashPage,
+  AddEditBlogPage, DenomFilterPage,
+ } from './page';
+import {
+  ROUTE_NAME_LOGIN, ROUTE_NAME_MAIN_PAGE, ROUTE_NAME_REGISTER,
+  ROUTE_NAME_ADD_EDIT, ROUTE_NAME_DENOM_FILTER,
+} from './constant';
+import { PrivateRoute } from './component';
 
-function App() {
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['auth'],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = createStore(persistedReducer, applyMiddleware(thunk))
+const persistor = persistStore(store);
+
+const App = () => {
+  const getElement = (element) => {
+    return <PrivateRoute element={element} />
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SplashPage />}>
+            <Route path={ROUTE_NAME_LOGIN} element={<LoginPage />} />
+            <Route path={ROUTE_NAME_REGISTER} element={<RegisterPage />} />
+            <Route path={ROUTE_NAME_MAIN_PAGE} element={getElement(MainPage)} />
+            <Route path={ROUTE_NAME_ADD_EDIT} element={getElement(AddEditBlogPage)} />
+            <Route path={ROUTE_NAME_DENOM_FILTER} element={getElement(DenomFilterPage)} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        </div>
+      </PersistGate>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
