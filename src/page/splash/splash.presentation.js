@@ -4,7 +4,7 @@ import { Container } from '@mui/system';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { ROUTE_NAME_LOGIN, ROUTE_NAME_REGISTER } from '../../constant';
+import { ROUTE_NAME_DENOM_FILTER, ROUTE_NAME_LOGIN, ROUTE_NAME_MAIN_PAGE, ROUTE_NAME_REGISTER } from '../../constant';
 import { setToken } from '../../redux/action';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -25,10 +25,19 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLogoutPressed: () => {
     dispatch(setToken(''))
+  },
+  onDenomFilterPressed: (navigate) => {
+    navigate(`..${ROUTE_NAME_DENOM_FILTER}`, { replace: true })
+  },
+  onHomePressed: (navigate) => {
+    navigate(`..${ROUTE_NAME_MAIN_PAGE}`, { replace: true })
   }
 });
 
-const SplashPage = ({ onAppear, authenticated, onLogoutPressed }) => {
+const SplashPage = ({
+  onAppear, authenticated, onLogoutPressed, 
+  onHomePressed, onDenomFilterPressed
+ }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,11 +48,16 @@ const SplashPage = ({ onAppear, authenticated, onLogoutPressed }) => {
       <CssBaseline />
       <AppBar>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" component="div">
-            Sera ReactJs
-          </Typography>
+          <Button color="inherit" onClick={() => onHomePressed(navigate)}>
+            <Typography variant="h6" component="div">
+              Sera ReactJs
+            </Typography>
+          </Button>
           {authenticated ? (
-            <Button color="inherit" onClick={onLogoutPressed}>Logout</Button>
+            <div>
+              <Button color="inherit" onClick={() => onDenomFilterPressed(navigate)}>Denom Filter</Button>
+              <Button color="inherit" onClick={onLogoutPressed}>Logout</Button>
+            </div>
           ) : (<></>)}
         </Toolbar>
       </AppBar>

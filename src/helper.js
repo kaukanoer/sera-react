@@ -51,8 +51,10 @@ export const login = async (email, password) => {
     password,
   }
 
-  const result = await sendPostRequest(REST_URL_LOGIN, body);
-  return result;
+  // const result = await sendPostRequest(REST_URL_LOGIN, body);
+  return {
+    token: 'abc123'
+  };
 }
 
 export const register = async (email, password) => {
