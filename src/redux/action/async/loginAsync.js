@@ -16,5 +16,3 @@ export default (email, password, navigate) => async (dispatch) => {
     dispatch(logginIn(false));
   }
 };
-
-// 'eve.holt@reqres.in', 'cityslicka'
