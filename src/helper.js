@@ -1,4 +1,4 @@
-import { REST_BASE_URL, REST_URL_LOGIN } from "./constant";
+import { REST_BASE_URL, REST_URL_LOGIN, REST_URL_REGISTER } from "./constant";
 
 const getHttpHeaders = (authenticationToken) => {
   let headers = {
@@ -14,12 +14,16 @@ const getHttpHeaders = (authenticationToken) => {
 
 const handleResponse = async (response) => {
   const responseText = await response.text();
-  if (response.status === 200) {
-    if (responseText) {
-      return JSON.parse(responseText);
-    }
+  if (responseText && response.status === 200) {
+    return JSON.parse(responseText);
+  }
+  let err = '';
+  try {
+    err = JSON.parse(responseText);
+  } catch {
     throw new Error(responseText);
   }
+  throw new Error(err ? err.error : err);
 };
   
 export const sendGetRequest = async (apiPath, authenticationToken) => {
@@ -48,5 +52,17 @@ export const login = async (email, password) => {
       token: 'abc123'
     }
     // const result = await sendPostRequest(REST_URL_LOGIN, body);
+    return DUMMY_RESPONSE;
+}
+
+export const register = async (email, password) => {
+    const body = {
+      email,
+      password,
+    }
+    const DUMMY_RESPONSE = {
+      token: 'abc123'
+    }
+    // const result = await sendPostRequest(REST_URL_REGISTER, body);
     return DUMMY_RESPONSE;
 }

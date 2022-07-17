@@ -11,7 +11,7 @@ const PrivateRoute = ({ element: Element, authenticated }) => {
   if (authenticated) {
     return <Element />
   }
-  return <Navigate to={`../${ROUTE_NAME_LOGIN}`} />
+  return <Navigate to={ROUTE_NAME_LOGIN} />
 }
 
 export default connect(mapStateToProps)(PrivateRoute);
