@@ -6,7 +6,7 @@ import { Button, TextField } from '../../component';
 import { FIELD_BLOG_TITLE, FIELD_BLOG_DESCRIPTION } from '../../constant';
 import { useNavigate } from 'react-router-dom';
 
-const AddEditBlogPage = ({ tappedId, addingEditing, onSubmit }) => {
+const AddEditBlogPage = ({ tappedId, addingEditing, onSubmit, selectedBlog }) => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,21 +27,26 @@ const AddEditBlogPage = ({ tappedId, addingEditing, onSubmit }) => {
           borderRadius: 2,
         }}
       > 
-        <Typography variant="h6" component="div">Add New Blog</Typography>
+        <Typography variant="h6" component="div">
+          {tappedId ? "Edit Blog" : "Add New Blog"}
+        </Typography>
           <TextField
             name={FIELD_BLOG_TITLE}
             label="Title"
+            defaultValue={tappedId ? selectedBlog.title : null}
             required
           />
           <TextField
             name={FIELD_BLOG_DESCRIPTION}
             label="Description"
+            defaultValue={tappedId ? selectedBlog.description : null}
             multiline
+            rows={6}
             required
           />
           <Button
             type="submit"
-            caption="Submit"     
+            caption={tappedId ? "Save" : "Submit"}
             loading={addingEditing}
             fullWidth
           />

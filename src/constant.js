@@ -16,3 +16,5 @@ export const FIELD_BLOG_TITLE = 'title';
 export const FIELD_BLOG_DESCRIPTION = 'description';
 
 export const COLLECTION_NAME_BLOG = 'blog';
+export const MAX_DESCRIPTION_LENGTH = 50;
+export const TABLE_HEADER_ARR = ['No', 'Title', 'Description', 'Option'];

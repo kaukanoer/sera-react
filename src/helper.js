@@ -76,9 +76,7 @@ export const downloadBlogs = async () => {
   return items;
 }
 
-export const addBlog = async (body) => {
+export const addEditBlog = async (body) => {
   await setDoc(doc(firebase, COLLECTION_NAME_BLOG, body.id), body);
 }
-export const editBlog = async () => {
 
-}

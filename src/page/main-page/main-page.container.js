@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ROUTE_NAME_ADD_EDIT } from '../../constant';
-import { downloadBlogsAsync, displayErrorMessage } from '../../redux/action';
+import { downloadBlogsAsync, displayErrorMessage, showBlogDetailDialogVisibility, setSelectedBlog } from '../../redux/action';
 import MainPage from './main-page.presentation'
 
 const mapStateToProps = state => ({
@@ -8,6 +8,8 @@ const mapStateToProps = state => ({
   token: state.auth.token,
   blogs: state.blogs,
   downloadingBlogs: state.uiBlog.downloading,
+  detailDialogVisibility: state.uiBlog.detailDialogVisibility,
+  selectedBlog: state.uiBlog.selectedBlog,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,7 +18,19 @@ const mapDispatchToProps = (dispatch) => ({
     .catch((err) => dispatch(displayErrorMessage(err.message)))
   },
   onAddBlogPressed: (navigate) => {
+    dispatch(setSelectedBlog(null))
     navigate(`..${ROUTE_NAME_ADD_EDIT}`, { replace: true });
+  },
+  onEditPressed: (navigate) => {
+    navigate(`..${ROUTE_NAME_ADD_EDIT}`, { replace: true });
+    dispatch(showBlogDetailDialogVisibility(false));
+  },
+  onViewPressed: (obj) => {
+    dispatch(showBlogDetailDialogVisibility(true));
+    dispatch(setSelectedBlog(obj))
+  },
+  onCloseDialogPressed: () => {
+    dispatch(showBlogDetailDialogVisibility(false));
   }
 });
 
