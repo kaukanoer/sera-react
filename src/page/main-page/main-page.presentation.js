@@ -11,7 +11,7 @@ import { FIELD_BLOG_DESCRIPTION, FIELD_BLOG_TITLE, MAX_DESCRIPTION_LENGTH, TABLE
 const MainPage = ({ 
   blogs, onAddBlogPressed, onAppear, detailDialogVisibility,
   downloadingBlogs, onViewPressed, onCloseDialogPressed,
-  selectedBlog, onEditPressed,
+  selectedBlog, onEditPressed, onDeleteBlogPressed, deleting,
 }) => {
   const navigate = useNavigate();
   useEffect(onAppear, [])
@@ -35,12 +35,14 @@ const MainPage = ({
         caption='Edit'
         variant="contained"
         onPress={() => onEditPressed(navigate)}
+        disabled={deleting}
         fullWidth
       />
       <Button 
         caption='Delete' 
         variant="outlined"
-        onPress={() => {}}
+        onPress={() => onDeleteBlogPressed()}
+        loading={deleting}
         color='error'
         fullWidth
       />

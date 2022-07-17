@@ -30,6 +30,9 @@ export const setSelectedBlog = makeActionCreator(SET_SELECTED_BLOG, 'blog')
 export const ADDING_EDITING_BLOG = 'ADDING_EDITING_BLOG';
 export const addingEditingBlog = makeActionCreator(ADDING_EDITING_BLOG, 'status');
 
+export const DELETING_BLOG = 'DELETING_BLOG';
+export const deletingBlog = makeActionCreator(DELETING_BLOG, 'status');
+
 export const SHOW_BLOG_DETAIL_DIALOG_VISIBILITY = 'SHOW_BLOG_DETAIL_DIALOG_VISIBILITY';
 export const showBlogDetailDialogVisibility = makeActionCreator(SHOW_BLOG_DETAIL_DIALOG_VISIBILITY, 'status')
 

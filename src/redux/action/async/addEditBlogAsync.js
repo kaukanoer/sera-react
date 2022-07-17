@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { addingEditingBlog } from "../simple-action"
+import { addingEditingBlog, setSelectedBlog } from "../simple-action"
 import { addEditBlog } from "../../../helper";
 import { v4 as uuid } from 'uuid';
 import { ROUTE_NAME_MAIN_PAGE } from "../../../constant";
@@ -12,11 +12,13 @@ export default (title, description, navigate) => async (dispatch, getState) => {
       id: selectedBlog?.id || uuid(),
       title, 
       description,
+      visibility: true,
     }
     
     console.log('a: ', body)
 
     await addEditBlog(body);
+    dispatch(setSelectedBlog(null))
     navigate(`..${ROUTE_NAME_MAIN_PAGE}`, { replace: true });
   }
   finally {

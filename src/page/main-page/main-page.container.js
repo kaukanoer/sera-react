@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ROUTE_NAME_ADD_EDIT } from '../../constant';
-import { downloadBlogsAsync, displayErrorMessage, showBlogDetailDialogVisibility, setSelectedBlog } from '../../redux/action';
+import { downloadBlogsAsync, displayErrorMessage, showBlogDetailDialogVisibility, setSelectedBlog, deleteBlogAsync } from '../../redux/action';
 import MainPage from './main-page.presentation'
 
 const mapStateToProps = state => ({
@@ -10,12 +10,13 @@ const mapStateToProps = state => ({
   downloadingBlogs: state.uiBlog.downloading,
   detailDialogVisibility: state.uiBlog.detailDialogVisibility,
   selectedBlog: state.uiBlog.selectedBlog,
+  deleting: state.uiBlog.deleting,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onAppear: () => {
     dispatch(downloadBlogsAsync())
-    .catch((err) => dispatch(displayErrorMessage(err.message)))
+      .catch((err) => dispatch(displayErrorMessage(err.message)))
   },
   onAddBlogPressed: (navigate) => {
     dispatch(setSelectedBlog(null))
@@ -31,6 +32,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCloseDialogPressed: () => {
     dispatch(showBlogDetailDialogVisibility(false));
+  },
+  onDeleteBlogPressed: () => {
+    try {
+      dispatch(deleteBlogAsync())
+    } catch (err) {
+      dispatch(displayErrorMessage(err.message))
+    }
   }
 });
 
