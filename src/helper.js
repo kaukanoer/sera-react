@@ -48,11 +48,9 @@ export const login = async (email, password) => {
       email,
       password,
     }
-    const DUMMY_RESPONSE = {
-      token: 'abc123'
-    }
-    // const result = await sendPostRequest(REST_URL_LOGIN, body);
-    return DUMMY_RESPONSE;
+
+    const result = await sendPostRequest(REST_URL_LOGIN, body);
+    return result;
 }
 
 export const register = async (email, password) => {
@@ -60,9 +58,7 @@ export const register = async (email, password) => {
       email,
       password,
     }
-    const DUMMY_RESPONSE = {
-      token: 'abc123'
-    }
-    // const result = await sendPostRequest(REST_URL_REGISTER, body);
-    return DUMMY_RESPONSE;
+
+    const result = await sendPostRequest(REST_URL_REGISTER, body);
+    return result;
 }
